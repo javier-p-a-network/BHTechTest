@@ -1,4 +1,5 @@
-﻿using BHTechTest.Domain.ShareKernel.BHTechTest.Domain.SharedKernel;
+﻿using BHTechTest.Domain.ShareKernel;
+using BHTechTest.Domain.ShareKernel.BHTechTest.Domain.SharedKernel;
 using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities.Abstract;
 using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.ValueObjects;
 using System;
@@ -10,7 +11,17 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities
 {
     public class TodoList : AggregateRoot, ITodoList
     {
-        private readonly List<TodoItem> _items = new();
+        #region Constructor & Factory Methods
+        private readonly List<TodoItem> _items = [];
+        private readonly IOutputService _outputService;
+
+        private TodoList(IOutputService outputService)
+        {
+            _outputService = outputService ?? throw new ArgumentNullException(nameof(outputService));
+        }
+
+        internal static TodoList Create(IOutputService outputService) => new(outputService);
+        #endregion
 
         public void AddItem(int id, string title, string description, string category)
         {
@@ -52,13 +63,13 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities
 
             foreach (var item in ordered)
             {
-                Console.WriteLine($"{item.Id}) {item.Title} - {item.Description} ({item.Category}) Completed:{item.IsCompleted}.");
+                _outputService.WriteLine($"{item.Id}) {item.Title} - {item.Description} ({item.Category}) Completed:{item.IsCompleted}.");
                 foreach (var p in item.Progressions)
                 {
                     var pct = p.Percent;
                     var bar = BuildProgressBar(pct);
                     // Example date format: 3/18/2025 12:00:00 AM
-                    Console.WriteLine($"{p.DateTime.ToString(culture)} - {decimal.ToInt32(pct)}% {bar}");
+                    _outputService.WriteLine($"{p.DateTime.ToString(culture)} - {decimal.ToInt32(pct)}% {bar}");
                 }
             }
         }

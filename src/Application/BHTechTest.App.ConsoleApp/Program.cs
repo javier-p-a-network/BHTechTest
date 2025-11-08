@@ -1,4 +1,6 @@
-﻿using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Services;
+﻿using BHTechTest.App.ConsoleApp;
+using BHTechTest.Domain.ShareKernel;
+using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Services;
 using BHTechTest.Infrastructure.ToDoListContext;
 using System.Globalization;
 
@@ -7,8 +9,10 @@ class Program
     private static void Main(string[] args)
     {
         // Initialize repository and aggregate
+        var outputService = new OutputService();
         var repo = new MemoryTodoListRepository();
-        var todoListService = new TodoListService(repo);
+        var todoListService = new TodoListService(repo, outputService);
+
 
         Console.WriteLine("Welcome to TodoList App");
         Console.WriteLine("Commands: add, update, remove, progress, print, exit");
@@ -27,19 +31,19 @@ class Program
                 {
                     case "add":
                         // format: add |title| |description| |category|
-                        HandleAdd(todoListService, rest);
+                        HandleAdd(todoListService, rest, outputService);
                         break;
                     case "update":
                         // format: update id |description|
-                        HandleUpdate(todoListService, rest);
+                        HandleUpdate(todoListService, rest, outputService);
                         break;
                     case "remove":
                         // format: remove id
-                        HandleRemove(todoListService, rest);
+                        HandleRemove(todoListService, rest, outputService);
                         break;
                     case "progress":
                         // format: progress id yyyy-MM-ddTHH:mm percent
-                        HandleProgress(todoListService, rest);
+                        HandleProgress(todoListService, rest, outputService);
                         break;
                     case "print":
                         HandlePrintItems(todoListService);
@@ -58,55 +62,62 @@ class Program
         }
     }
 
-    private static void HandleAdd(TodoListService todoListService, string args)
+    private static void HandleAdd(TodoListService todoListService, string args, IOutputService _outputService)
     {
         // We'll expect args in pipe separated: title|description|category
         var parts = args.Split('|', StringSplitOptions.TrimEntries);
         if (parts.Length < 3)
         {
-            Console.WriteLine("Usage: add Title|Description|Category");
+            _outputService.WriteLine("Usage: add Title|Description|Category");
             return;
         }
-        todoListService.AddItem(parts[0], parts[1], parts[2]);
-        Console.WriteLine($"Added item");
+        var result = todoListService.AddItem(parts[0], parts[1], parts[2]);
+        if (result.HasErrors)
+        {
+            _outputService.Write(result);
+            return;
+        }
+
+        var id = result.Value;
+        _outputService.WriteLine($"Added item id {id}");
     }
 
-    private static void HandleUpdate(TodoListService todoListService, string args)
+    private static void HandleUpdate(TodoListService todoListService, string args, IOutputService _outputService)
     {
         var parts = args.Split(' ', 2, StringSplitOptions.TrimEntries);
         if (parts.Length < 2 || !int.TryParse(parts[0], out var id))
         {
-            Console.WriteLine("Usage: update <id> New description");
+            _outputService.WriteLine("Usage: update <id> New description");
             return;
         }
-        todoListService.TodoList.UpdateItem(id, parts[1]);
-        Console.WriteLine($"Updated item {id}");
+        todoListService.UpdateItem(id, parts[1]);
+        _outputService.WriteLine($"Updated item {id}");
     }
 
-    private static void HandleRemove(TodoListService todoListService, string args)
+    private static void HandleRemove(TodoListService todoListService, string args, IOutputService _outputService)
     {
         if (!int.TryParse(args.Trim(), out var id))
         {
-            Console.WriteLine("Usage: remove <id>");
+            _outputService.WriteLine("Usage: remove <id>");
             return;
         }
-        todoListService.TodoList.RemoveItem(id);
-        Console.WriteLine($"Removed item {id}");
+        todoListService.RemoveItem(id);
+        _outputService.WriteLine($"Removed item {id}");
     }
 
-    private static void HandleProgress(TodoListService todoListService, string args)
+    private static void HandleProgress(TodoListService todoListService, string args, IOutputService _outputService)
     {
         // usage: progress id 2025-03-18T00:00 30
         var parts = args.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         if (parts.Length < 3 || !int.TryParse(parts[0], out var id))
         {
-            Console.WriteLine("Usage: progress <id> <ISO-datetime> <percent>");
+            _outputService.WriteLine("Usage: progress <id> <ISO-datetime> <percent>");
             return;
         }
 
         if (!DateTime.TryParse(parts[1], null, DateTimeStyles.RoundtripKind, out var dt))
         {
-            Console.WriteLine("Invalid date. Use ISO format like 2025-03-18T00:00:00");
+            _outputService.WriteLine("Invalid date. Use ISO format like 2025-03-18T00:00:00");
             return;
         }
 
@@ -116,10 +127,10 @@ class Program
             return;
         }
 
-        todoListService.TodoList.RegisterProgression(id, dt, percent);
-        Console.WriteLine($"Registered progress for {id}");
+        todoListService.RegisterProgression(id, dt, percent);
+        _outputService.WriteLine($"Registered progress for {id}");
     }
 
     private static void HandlePrintItems(TodoListService todoListService) =>
-        todoListService.TodoList.PrintItems();
+        todoListService.PrintItems();
 }
