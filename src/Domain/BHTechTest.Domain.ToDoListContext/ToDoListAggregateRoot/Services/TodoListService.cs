@@ -1,6 +1,7 @@
 ﻿using BHTechTest.Domain.ShareKernel;
 using BHTechTest.Domain.ShareKernel.Results;
 using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities;
+using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities.Abstract;
 using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Repositories;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Services
     {
         private readonly ITodoListRepository _repository;
         private readonly IOutputService _outputService;
-        private readonly TodoList _todoList;
+        private readonly ITodoList _todoList;
 
         public TodoListService(ITodoListRepository repository, IOutputService outputService)
         {
@@ -21,12 +22,17 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Services
             _todoList = TodoList.Create(outputService);
         }
 
+        /// <summary>
+        /// For tests and usage: ability to seed items or query items (internal)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Result<TodoItem> GetItem(int id)
         {
             try
             {
                 var result = Result.CreateDefault<TodoItem>();
-                var value = _todoList.Items.Single(i => i.Id == id);
+                var value = ((TodoList)_todoList).Items.Single(i => i.Id == id);
                 result.AddValue(value);
                 return result;
             }

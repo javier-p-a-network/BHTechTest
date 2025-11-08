@@ -20,7 +20,7 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities
             _outputService = outputService ?? throw new ArgumentNullException(nameof(outputService));
         }
 
-        internal static TodoList Create(IOutputService outputService) => new(outputService);
+        internal static ITodoList Create(IOutputService outputService) => new TodoList(outputService);
         #endregion
 
         public void AddItem(int id, string title, string description, string category)
@@ -93,7 +93,9 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities
             return item;
         }
 
-        // For tests and usage: ability to seed items or query items (internal)
+        /// <summary>
+        ///  For tests and usage: ability to seed items or query items (internal)
+        /// </summary>
         public IReadOnlyList<TodoItem> Items => _items.AsReadOnly();
     }
 }
