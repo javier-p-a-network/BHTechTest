@@ -1,29 +1,19 @@
 ﻿using BHTechTest.Domain.ShareKernel.BHTechTest.Domain.SharedKernel;
-using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Abstract;
+using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities.Abstract;
+using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot
+namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities
 {
     public class TodoList : AggregateRoot, ITodoList
     {
         private readonly List<TodoItem> _items = new();
-        private readonly ITodoListRepository _repository;
-
-        public TodoList(ITodoListRepository repository)
-        {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-        }
 
         public void AddItem(int id, string title, string description, string category)
         {
-            // Validate category exists in repository
-            var categories = _repository.GetAllCategories() ?? new List<string>();
-            if (!categories.Contains(category))
-                throw new InvalidOperationException($"Category '{category}' is not valid.");
-
             if (_items.Any(i => i.Id == id))
                 throw new InvalidOperationException($"An item with id {id} already exists.");
 
@@ -68,7 +58,7 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot
                     var pct = p.Percent;
                     var bar = BuildProgressBar(pct);
                     // Example date format: 3/18/2025 12:00:00 AM
-                    Console.WriteLine($"{p.DateTime.ToString(culture)} - {Decimal.ToInt32(pct)}% {bar}");
+                    Console.WriteLine($"{p.DateTime.ToString(culture)} - {decimal.ToInt32(pct)}% {bar}");
                 }
             }
         }
@@ -91,9 +81,6 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot
             if (item == null) throw new InvalidOperationException($"Item with id {id} not found.");
             return item;
         }
-
-        // Helper to create new id via repository
-        public int GetNextId() => _repository.GetNextId();
 
         // For tests and usage: ability to seed items or query items (internal)
         public IReadOnlyList<TodoItem> Items => _items.AsReadOnly();

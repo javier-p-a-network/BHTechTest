@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Abstract
+namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Repositories
 {
     public interface ITodoListRepository
     {

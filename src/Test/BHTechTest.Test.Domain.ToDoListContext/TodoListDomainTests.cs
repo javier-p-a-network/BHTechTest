@@ -1,5 +1,6 @@
 using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot;
-using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Abstract;
+using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities.Abstract;
+using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Repositories;
 using System;
 using System.Linq;
 

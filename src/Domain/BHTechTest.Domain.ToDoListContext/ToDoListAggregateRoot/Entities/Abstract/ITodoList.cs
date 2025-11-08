@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Abstract
+namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities.Abstract
 {
     public interface ITodoList
     {

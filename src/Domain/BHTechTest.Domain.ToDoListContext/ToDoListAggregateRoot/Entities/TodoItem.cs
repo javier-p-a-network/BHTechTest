@@ -1,8 +1,9 @@
-﻿using System;
+﻿using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.ValueObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot
+namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities
 {
     public class TodoItem
     {
@@ -31,7 +32,7 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot
         // Adds a progression; percent is interpreted as **cumulative** percent (matching example).
         public void AddProgression(Progression progression)
         {
-            if (progression == null) throw new ArgumentNullException(nameof(progression));
+            ArgumentNullException.ThrowIfNull(progression);
 
             // percent validation: greater than 0 and less or equal 100
             if (progression.Percent <= 0m || progression.Percent > 100m)
