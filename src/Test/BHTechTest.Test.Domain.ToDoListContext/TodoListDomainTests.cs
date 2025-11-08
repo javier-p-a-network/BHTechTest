@@ -1,7 +1,6 @@
 using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot;
 using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Abstract;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace BHTechTest.Test.Domain.ToDoListContext
@@ -13,7 +12,7 @@ namespace BHTechTest.Test.Domain.ToDoListContext
         public void HappyPath_example_and_print_like_sample()
         {
             var repo = default(ITodoListRepository);// new InMemoryTodoListRepository(new List<string> { "Work" });
-            var todoList = new TodoListAggregate(repo);
+            var todoList = new TodoList(repo);
 
             var id = todoList.GetNextId();
             todoList.AddItem(id, "Complete Project Report", "Finish the final report for the project", "Work");
@@ -32,7 +31,7 @@ namespace BHTechTest.Test.Domain.ToDoListContext
         public void Cannot_add_progression_with_lower_or_equal_date()
         {
             var repo = default(ITodoListRepository); //new InMemoryTodoListRepository(new System.Collections.Generic.List<string> { "Work" });
-            var todoList = new TodoListAggregate(repo);
+            var todoList = new TodoList(repo);
             var id = todoList.GetNextId();
             todoList.AddItem(id, "Task", "Desc", "Work");
             todoList.RegisterProgression(id, new DateTime(2025, 1, 1), 10m);
@@ -48,7 +47,7 @@ namespace BHTechTest.Test.Domain.ToDoListContext
         public void Cannot_register_progression_with_invalid_percent_or_non_increasing_percent()
         {
             var repo = default(ITodoListRepository); //new InMemoryTodoListRepository(new System.Collections.Generic.List<string> { "Work" });
-            var todoList = new TodoListAggregate(repo);
+            var todoList = new TodoList(repo);
             var id = todoList.GetNextId();
             todoList.AddItem(id, "Task", "Desc", "Work");
 
@@ -68,7 +67,7 @@ namespace BHTechTest.Test.Domain.ToDoListContext
         public void Cannot_update_or_delete_item_with_progress_more_than_50_percent()
         {
             var repo = default(ITodoListRepository); //new InMemoryTodoListRepository(new System.Collections.Generic.List<string> { "Work" });
-            var todoList = new TodoListAggregate(repo);
+            var todoList = new TodoList(repo);
             var id = todoList.GetNextId();
             todoList.AddItem(id, "Task", "Desc", "Work");
 

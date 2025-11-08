@@ -7,8 +7,8 @@ class Program
     static void Main(string[] args)
     {
         // Initialize repository and aggregate
-        var repo = new InMemoryTodoListRepository();
-        var todoList = new TodoListAggregate(repo);
+        var repo = new MemoryTodoListRepository();
+        var todoList = new TodoList(repo);
 
         Console.WriteLine("Welcome to TodoList App");
         Console.WriteLine("Commands: add, update, remove, progress, print, exit");
@@ -58,7 +58,7 @@ class Program
         }
     }
 
-    static void HandleAdd(TodoListAggregate todoList, string args)
+    static void HandleAdd(TodoList todoList, string args)
     {
         // We'll expect args in pipe separated: title|description|category
         var parts = args.Split('|', StringSplitOptions.TrimEntries);
@@ -72,7 +72,7 @@ class Program
         Console.WriteLine($"Added item id {id}");
     }
 
-    static void HandleUpdate(TodoListAggregate todoList, string args)
+    static void HandleUpdate(TodoList todoList, string args)
     {
         var parts = args.Split(' ', 2, StringSplitOptions.TrimEntries);
         if (parts.Length < 2 || !int.TryParse(parts[0], out var id))
@@ -84,7 +84,7 @@ class Program
         Console.WriteLine($"Updated item {id}");
     }
 
-    static void HandleRemove(TodoListAggregate todoList, string args)
+    static void HandleRemove(TodoList todoList, string args)
     {
         if (!int.TryParse(args.Trim(), out var id))
         {
@@ -95,7 +95,7 @@ class Program
         Console.WriteLine($"Removed item {id}");
     }
 
-    static void HandleProgress(TodoListAggregate todoList, string args)
+    static void HandleProgress(TodoList todoList, string args)
     {
         // usage: progress id 2025-03-18T00:00 30
         var parts = args.Split(' ', StringSplitOptions.RemoveEmptyEntries);

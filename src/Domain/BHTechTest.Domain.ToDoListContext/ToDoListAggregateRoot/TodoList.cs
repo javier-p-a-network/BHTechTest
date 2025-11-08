@@ -7,12 +7,12 @@ using System.Linq;
 
 namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot
 {
-    public class TodoListAggregate : AggregateRoot, ITodoList
+    public class TodoList : AggregateRoot, ITodoList
     {
         private readonly List<TodoItem> _items = new();
         private readonly ITodoListRepository _repository;
 
-        public TodoListAggregate(ITodoListRepository repository)
+        public TodoList(ITodoListRepository repository)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }

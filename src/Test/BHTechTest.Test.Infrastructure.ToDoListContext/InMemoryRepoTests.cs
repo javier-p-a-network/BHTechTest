@@ -9,7 +9,7 @@ namespace BHTechTest.Test.Infrastructure.ToDoListContext
         [TestMethod]
         public void GetNextId_increments()
         {
-            var repo = new InMemoryTodoListRepository();
+            var repo = new MemoryTodoListRepository();
             var a = repo.GetNextId();
             var b = repo.GetNextId();
             Assert.AreEqual(a + 1, b);
@@ -18,7 +18,7 @@ namespace BHTechTest.Test.Infrastructure.ToDoListContext
         [TestMethod]
         public void Default_categories_contain_work()
         {
-            var repo = new InMemoryTodoListRepository();
+            var repo = new MemoryTodoListRepository();
             var cats = repo.GetAllCategories();
             CollectionAssert.Contains(cats, "Work");
         }
@@ -26,7 +26,7 @@ namespace BHTechTest.Test.Infrastructure.ToDoListContext
         [TestMethod]
         public void Can_supply_custom_categories()
         {
-            var repo = new InMemoryTodoListRepository(new List<string> { "Custom" });
+            var repo = new MemoryTodoListRepository(new List<string> { "Custom" });
             var cats = repo.GetAllCategories();
             CollectionAssert.Contains(cats, "Custom");
             CollectionAssert.DoesNotContain(cats, "Work");

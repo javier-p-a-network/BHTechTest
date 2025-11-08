@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace BHTechTest.Infrastructure.ToDoListContext
 {
-    public class InMemoryTodoListRepository : ITodoListRepository
+    public class MemoryTodoListRepository : ITodoListRepository
     {
         private int _current = 0;
         private readonly List<string> _categories;
 
-        public InMemoryTodoListRepository(List<string>? categories = null)
+        public MemoryTodoListRepository(List<string>? categories = null)
         {
             // Default categories if not provided
             _categories = categories ?? new List<string> { "Work", "Home", "Personal", "Other" };
