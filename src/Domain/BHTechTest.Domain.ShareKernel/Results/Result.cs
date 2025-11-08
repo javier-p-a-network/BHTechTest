@@ -117,6 +117,8 @@ namespace BHTechTest.Domain.ShareKernel.Results
         public bool HasErrors { get => Has(ResultType.Error); }
         public bool Has(ResultType type) => _result.Messages.Any(m => m.Type == type);
 
+        internal Result InnerResult => _result;
+
         public T? Value { get; private set; }
 
         #region Constructor & Factory Method
@@ -160,15 +162,16 @@ namespace BHTechTest.Domain.ShareKernel.Results
             return this;
         }
 
-        public Result<T> Add(Result<T> tResult)
+        public Result<T> AddValue(T? value)
         {
-            _result.AddTyped(tResult);
+            Value = value;
             return this;
         }
 
-        public Result<T> AddValue(T value)
+        public Result<T> Add(Result<T> tResult)
         {
-            _result.AddValue(value);
+            Add(tResult.InnerResult);
+            AddValue(tResult.Value);
             return this;
         }
         #endregion

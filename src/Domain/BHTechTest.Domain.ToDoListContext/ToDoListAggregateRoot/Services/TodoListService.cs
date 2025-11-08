@@ -48,6 +48,7 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Services
                 var id = _repository.GetNextId();
 
                 _todoList.AddItem(id, title, description, category);
+                result.AddValue(id);
                 return result;
             }
             catch (Exception ex)
