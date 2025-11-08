@@ -20,7 +20,7 @@ namespace BHTechTest.Domain.ShareKernel.Results
         private Result() { }
 
         public static Result CreateDefault() => new();
-        public static Result CreateError(Exception ex) => (new Result()).AddError(ex);
+        public static Result CreateError(Exception ex) => CreateDefault().AddError(ex);
         #endregion
 
         #region Add
@@ -44,12 +44,12 @@ namespace BHTechTest.Domain.ShareKernel.Results
             if (HasErrors)
                 return this;
 
-            var createResult = ResultMessage.Create(type, text);
-            AddTyped(createResult);
+            var createMsgResult = ResultMessage.Create(type, text);
+            AddTyped(createMsgResult);
             if (HasErrors)
                 return this;
 
-            var resultMessage = createResult.Value;
+            var resultMessage = createMsgResult.Value;
             if(resultMessage!= null)
                 Messages.Add(resultMessage);
             return this;
@@ -64,7 +64,7 @@ namespace BHTechTest.Domain.ShareKernel.Results
             return this;
         }
 
-        internal Result<T> AddTyped<T>(Result<T> tResult)
+        private Result AddTyped<T>(Result<T> tResult)
         {
             var value = default(T);
 
@@ -78,7 +78,7 @@ namespace BHTechTest.Domain.ShareKernel.Results
                 value = tResult.Value;
             }
 
-            return AddValue(value);
+            return this;
         }
         #endregion
 

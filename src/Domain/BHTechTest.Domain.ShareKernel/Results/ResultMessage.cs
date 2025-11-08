@@ -22,15 +22,14 @@ namespace BHTechTest.Domain.ShareKernel.Results
         public static Result<ResultMessage> Create(ResultType type, string text)
         {
             var result = Result<ResultMessage>.CreateDefault();
-            var resultMessage = CreateDefault();
 
             var canCreateResult = CanCreate(type, text);
             result.Add(canCreateResult);
             if (canCreateResult.HasErrors)
                 return result;
 
-            resultMessage = new ResultMessage(type, text);
-            return result;
+            var resultMessage = new ResultMessage(type, text);
+            return result.AddValue(resultMessage);
         }
 
         private static Result CanCreate(ResultType type, string text)
