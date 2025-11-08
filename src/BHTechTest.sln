@@ -1,0 +1,83 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36603.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Domain", "0 - Domain", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Infrastructure", "1 - Infrastructure", "{5C2C1770-4B7D-4739-B9EC-3992FCE56170}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Application", "2 - Application", "{CA3B40C5-3126-4686-A9E4-02CE79CBFAEF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Test", "3 - Test", "{0DF66567-1C77-4247-9223-87D89FFCF0D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.0 - Shared Kernel", "0.0 - Shared Kernel", "{C2062104-D6D3-42D1-BBE8-04C9738E3DD6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.1 - (Bounded) Contexts", "0.1 - (Bounded) Contexts", "{619E34C3-4493-4DCC-960E-A267BB82DA60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BHTechTest.Domain.ShareKernel", "Domain\BHTechTest.Domain.ShareKernel\BHTechTest.Domain.ShareKernel.csproj", "{78E21C3F-B4A7-4818-A63E-A4EE4EC5F1C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BHTechTest.Domain.ToDoListContext", "Domain\BHTechTest.Domain.ToDoListContext\BHTechTest.Domain.ToDoListContext.csproj", "{1C15BF2A-9BA0-4FDA-B811-FFDF129C4AEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BHTechTest.Infrastructure.ToDoListContext", "Infrastructure\BHTechTest.Infrastructure.ToDoListContext\BHTechTest.Infrastructure.ToDoListContext.csproj", "{B4F96E60-F720-4263-8B3A-D9966EE7E72B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BHTechTest.Test.Domain.ToDoListContext", "Test\BHTechTest.Test.Domain.ToDoListContext\BHTechTest.Test.Domain.ToDoListContext.csproj", "{58AB3993-1851-4B9B-A41C-4D4190D1FC89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BHTechTest.Test.Infrastructure.ToDoListContext", "Test\BHTechTest.Test.Infrastructure.ToDoListContext\BHTechTest.Test.Infrastructure.ToDoListContext.csproj", "{D4CD4D6D-6980-47FA-B115-909BB248E064}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BHTechTest.App.ConsoleApp", "Application\BHTechTest.App.ConsoleApp\BHTechTest.App.ConsoleApp.csproj", "{538F6460-49F4-452E-974F-0920889AB376}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.0 - Domain", "3.0 - Domain", "{A29B5069-9366-4944-9D27-31E03CD2DF3C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.1 - Infrastructure", "3.1 - Infrastructure", "{012F9F8F-0C8D-408F-AD31-8E2622D2B81C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78E21C3F-B4A7-4818-A63E-A4EE4EC5F1C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78E21C3F-B4A7-4818-A63E-A4EE4EC5F1C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78E21C3F-B4A7-4818-A63E-A4EE4EC5F1C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78E21C3F-B4A7-4818-A63E-A4EE4EC5F1C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C15BF2A-9BA0-4FDA-B811-FFDF129C4AEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C15BF2A-9BA0-4FDA-B811-FFDF129C4AEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C15BF2A-9BA0-4FDA-B811-FFDF129C4AEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C15BF2A-9BA0-4FDA-B811-FFDF129C4AEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4F96E60-F720-4263-8B3A-D9966EE7E72B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4F96E60-F720-4263-8B3A-D9966EE7E72B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4F96E60-F720-4263-8B3A-D9966EE7E72B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4F96E60-F720-4263-8B3A-D9966EE7E72B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58AB3993-1851-4B9B-A41C-4D4190D1FC89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58AB3993-1851-4B9B-A41C-4D4190D1FC89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58AB3993-1851-4B9B-A41C-4D4190D1FC89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58AB3993-1851-4B9B-A41C-4D4190D1FC89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4CD4D6D-6980-47FA-B115-909BB248E064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4CD4D6D-6980-47FA-B115-909BB248E064}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4CD4D6D-6980-47FA-B115-909BB248E064}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4CD4D6D-6980-47FA-B115-909BB248E064}.Release|Any CPU.Build.0 = Release|Any CPU
+		{538F6460-49F4-452E-974F-0920889AB376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{538F6460-49F4-452E-974F-0920889AB376}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{538F6460-49F4-452E-974F-0920889AB376}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{538F6460-49F4-452E-974F-0920889AB376}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C2062104-D6D3-42D1-BBE8-04C9738E3DD6} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{619E34C3-4493-4DCC-960E-A267BB82DA60} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{78E21C3F-B4A7-4818-A63E-A4EE4EC5F1C4} = {C2062104-D6D3-42D1-BBE8-04C9738E3DD6}
+		{1C15BF2A-9BA0-4FDA-B811-FFDF129C4AEB} = {619E34C3-4493-4DCC-960E-A267BB82DA60}
+		{B4F96E60-F720-4263-8B3A-D9966EE7E72B} = {5C2C1770-4B7D-4739-B9EC-3992FCE56170}
+		{58AB3993-1851-4B9B-A41C-4D4190D1FC89} = {A29B5069-9366-4944-9D27-31E03CD2DF3C}
+		{D4CD4D6D-6980-47FA-B115-909BB248E064} = {012F9F8F-0C8D-408F-AD31-8E2622D2B81C}
+		{538F6460-49F4-452E-974F-0920889AB376} = {CA3B40C5-3126-4686-A9E4-02CE79CBFAEF}
+		{A29B5069-9366-4944-9D27-31E03CD2DF3C} = {0DF66567-1C77-4247-9223-87D89FFCF0D4}
+		{012F9F8F-0C8D-408F-AD31-8E2622D2B81C} = {0DF66567-1C77-4247-9223-87D89FFCF0D4}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7EEC2F0-4AF1-4FC3-9C31-CA522F201D1E}
+	EndGlobalSection
+EndGlobal
