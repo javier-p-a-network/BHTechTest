@@ -64,7 +64,7 @@ namespace BHTechTest.Domain.ShareKernel.Results
             return this;
         }
 
-        private Result AddTyped<T>(Result<T> tResult)
+        public Result AddTyped<T>(Result<T> tResult)
         {
             var value = default(T);
 

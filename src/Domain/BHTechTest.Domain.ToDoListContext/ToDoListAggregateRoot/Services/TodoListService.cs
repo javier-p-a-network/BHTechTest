@@ -68,7 +68,11 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Services
             {
                 var result = Result.CreateDefault();
 
-                var categories = _repository.GetAllCategories() ?? new List<string>();
+                var listCategoriesResult = ListCategories();
+                result.AddTyped(listCategoriesResult);
+                if (result.HasErrors) return result;
+
+                var categories = listCategoriesResult.Value ?? [];
                 var isValid = categories.Contains(category);
                 if (!isValid) result.AddError($"Category '{category}' is not valid.");
 
@@ -141,6 +145,22 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Services
             catch (Exception ex)
             {
                 return Result.CreateError(ex);
+            }
+        }
+
+        public Result<List<string>> ListCategories()
+        {
+            try
+            {
+                var result = Result.CreateDefault<List<string>>();
+
+                var categories = _repository.GetAllCategories() ?? [];
+
+                return result.AddValue(categories);
+            }
+            catch (Exception ex)
+            {
+                return Result.CreateError<List<string>>(ex);
             }
         }
 

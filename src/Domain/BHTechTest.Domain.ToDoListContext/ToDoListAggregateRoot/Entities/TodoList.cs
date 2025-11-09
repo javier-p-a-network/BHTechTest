@@ -36,7 +36,7 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities
         {
             var item = FindItemOrThrow(id);
             // Not allowed to update if >50% completed
-            if (item.LatestProgressPercent > 50m)
+            if (item.AcumulativeProgressPercent > 50m)
                 throw new InvalidOperationException("Cannot update an item with progress greater than 50%.");
 
             item.UpdateDescription(description);
@@ -45,7 +45,7 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities
         public void RemoveItem(int id)
         {
             var item = FindItemOrThrow(id);
-            if (item.LatestProgressPercent > 50m)
+            if (item.AcumulativeProgressPercent > 50m)
                 throw new InvalidOperationException("Cannot remove an item with progress greater than 50%.");
             _items.Remove(item);
         }
@@ -68,8 +68,9 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities
                 {
                     var pct = p.Percent + item.Progressions.Where(p2 => p2.DateTime < p.DateTime).Sum(p2 => p2.Percent);
                     var bar = BuildProgressBar(pct);
+
                     // Example date format: 3/18/2025 12:00:00 AM
-                    _outputService.WriteLine($"{p.DateTime.ToString(culture)} - {decimal.ToInt32(pct)}% {bar}");
+                    _outputService.WriteLine($"{p.DateTime.ToString(culture)} - {decimal.ToInt32(pct), 3}% {bar}");
                 }
             }
         }

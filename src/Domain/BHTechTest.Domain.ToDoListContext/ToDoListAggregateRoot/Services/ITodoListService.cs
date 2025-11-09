@@ -1,6 +1,7 @@
 ﻿using BHTechTest.Domain.ShareKernel.Results;
 using BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Services
 {
@@ -12,5 +13,6 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Services
         Result RemoveItem(int id);
         Result RegisterProgression(int id, DateTime dateTime, decimal percent);
         Result PrintItems();
+        Result<List<string>> ListCategories();
     }
 }

@@ -27,7 +27,7 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities
         /// <summary>
         ///  Accumulated progress percent
         /// </summary>
-        private decimal AcumulativeProgressPercent => _progressions.Sum(p => p.Percent);
+        public decimal AcumulativeProgressPercent => _progressions.Any() ? _progressions.Sum(p => p.Percent) : 0m;
 
         /// <summary>
         /// Accumulated progress percent is 100
@@ -57,7 +57,7 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities
             if (_progressions.Any() && progression.DateTime <= _progressions.Last().DateTime)
                 throw new InvalidOperationException("Progression date must be greater than the last progression date.");
 
-            if (_progressions.Any() && progression.Percent + AcumulativeProgressPercent <= 100m)
+            if (_progressions.Any() && progression.Percent + AcumulativeProgressPercent > 100m)
                 throw new InvalidOperationException("Accumulative Progression percent must be less or equal than 100.");
 
             _progressions.Add(progression);
