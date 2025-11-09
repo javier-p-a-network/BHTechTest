@@ -3,7 +3,7 @@ using BHTechTest.Domain.ShareKernel.Results;
 
 namespace BHTechTest.App.ConsoleApp
 {
-    public class OutputService : IOutputService
+    public class ConsoleOutputService : IOutputService
     {
         public void WriteLine(string message) =>
             Console.WriteLine(message);

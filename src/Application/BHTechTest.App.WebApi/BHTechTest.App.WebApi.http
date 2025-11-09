@@ -1,0 +1,6 @@
+@BHTechTest.App.WebApi_HostAddress = http://localhost:5164
+
+GET {{BHTechTest.App.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

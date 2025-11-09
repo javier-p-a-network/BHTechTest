@@ -5,7 +5,8 @@ class Program
 {
     private static void Main(string[] args)
     {
-        var outputService = new OutputService();
+        //TODO: Change to dependency injection
+        var outputService = new ConsoleOutputService();
         var appService = new TodoListAppService(outputService);
 
         Console.WriteLine("Welcome to TodoList App");
