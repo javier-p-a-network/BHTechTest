@@ -66,7 +66,7 @@ namespace BHTechTest.Domain.ToDoListContext.ToDoListAggregateRoot.Entities
                 _outputService.WriteLine($"{item.Id}) {item.Title} - {item.Description} ({item.Category}) Completed:{item.IsCompleted}.");
                 foreach (var p in item.Progressions)
                 {
-                    var pct = p.Percent;
+                    var pct = p.Percent + item.Progressions.Where(p2 => p2.DateTime < p.DateTime).Sum(p2 => p2.Percent);
                     var bar = BuildProgressBar(pct);
                     // Example date format: 3/18/2025 12:00:00 AM
                     _outputService.WriteLine($"{p.DateTime.ToString(culture)} - {decimal.ToInt32(pct)}% {bar}");

@@ -40,25 +40,23 @@ namespace BHTechTest.Test.Domain.ToDoListContext
             var outputMock = CreateOutputMock();
             var todoListService = new TodoListService(repoMock.Object, outputMock.Object);
 
-            // Act - add item
+            //Act
             var addResult = todoListService.AddItem("Complete Project Report", "Finish the final report for the project", "Work");
-            Assert.IsFalse(addResult.HasErrors, "AddItem should succeed");
             var id = addResult.Value;
 
-            // Act - register progressions
             var r30 = todoListService.RegisterProgression(id, new DateTime(2025, 3, 18), 30m);
-            Assert.IsFalse(r30.HasErrors, "RegisterProgression 30% should succeed");
-
             var r80 = todoListService.RegisterProgression(id, new DateTime(2025, 3, 19), 80m);
-            Assert.IsFalse(r80.HasErrors, "RegisterProgression 80% should succeed");
-
             var r100 = todoListService.RegisterProgression(id, new DateTime(2025, 3, 20), 100m);
-            Assert.IsFalse(r100.HasErrors, "RegisterProgression 100% should succeed");
 
-            // Assert final state
             var getResult = todoListService.GetItem(id);
-            Assert.IsFalse(getResult.HasErrors, "GetItem should succeed");
             var item = getResult.Value;
+
+            //Assert
+            Assert.IsFalse(addResult.HasErrors, "AddItem should succeed");
+            Assert.IsFalse(r30.HasErrors, "RegisterProgression 30% should succeed");
+            Assert.IsFalse(r80.HasErrors, "RegisterProgression 80% should succeed");
+            Assert.IsFalse(r100.HasErrors, "RegisterProgression 100% should succeed");
+            Assert.IsFalse(getResult.HasErrors, "GetItem should succeed");
             Assert.IsNotNull(item);
             Assert.IsTrue(item.IsCompleted, "Item should be completed after 100%");
             Assert.AreEqual(3, item.Progressions.Count);
@@ -73,77 +71,66 @@ namespace BHTechTest.Test.Domain.ToDoListContext
             var outputMock = CreateOutputMock();
             var todoListService = new TodoListService(repoMock.Object, outputMock.Object);
 
-            // Add item
+            //Act
             var addResult = todoListService.AddItem("Task", "Desc", "Work");
-            Assert.IsFalse(addResult.HasErrors);
             var id = addResult.Value;
 
-            // First progression OK
             var first = todoListService.RegisterProgression(id, new DateTime(2025, 1, 1), 10m);
-            Assert.IsFalse(first.HasErrors);
-
-            // Same date => should result in error (service wraps exceptions into Result)
             var sameDate = todoListService.RegisterProgression(id, new DateTime(2025, 1, 1), 20m);
-            Assert.IsTrue(sameDate.HasErrors, "Registering a progression with the same date should produce an error");
-
-            // Older date => should result in error
             var olderDate = todoListService.RegisterProgression(id, new DateTime(2024, 12, 31), 20m);
+
+            //Assert
+            Assert.IsFalse(addResult.HasErrors);
+            Assert.IsFalse(first.HasErrors);
+            Assert.IsTrue(sameDate.HasErrors, "Registering a progression with the same date should produce an error");
             Assert.IsTrue(olderDate.HasErrors, "Registering a progression with an older date should produce an error");
         }
 
         [TestMethod]
         public void Cannot_register_progression_with_invalid_percent_or_non_increasing_percent()
         {
-            // Arrange
+            //Arrange
             var repoMock = CreateDefaultRepoMock(nextId: 1, categories: new[] { "Work" });
             var outputMock = CreateOutputMock();
             var todoListService = new TodoListService(repoMock.Object, outputMock.Object);
 
-            // Add item
+            //Act
             var addResult = todoListService.AddItem("Task", "Desc", "Work");
-            Assert.IsFalse(addResult.HasErrors);
             var id = addResult.Value;
 
-            // Percent 0 => invalid
             var p0 = todoListService.RegisterProgression(id, DateTime.UtcNow.AddDays(1), 0m);
-            Assert.IsTrue(p0.HasErrors, "Percent 0 should be invalid");
-
-            // Percent > 100 => invalid
             var p120 = todoListService.RegisterProgression(id, DateTime.UtcNow.AddDays(1), 120m);
-            Assert.IsTrue(p120.HasErrors, "Percent > 100 should be invalid");
-
-            // Valid 30
             var p30 = todoListService.RegisterProgression(id, DateTime.UtcNow.AddDays(1), 30m);
-            Assert.IsFalse(p30.HasErrors, "Valid progression 30% should succeed");
-
-            // Non-increasing percent (20 after 30) => invalid
             var p20 = todoListService.RegisterProgression(id, DateTime.UtcNow.AddDays(2), 20m);
+
+            //Assert
+            Assert.IsFalse(addResult.HasErrors);
+            Assert.IsTrue(p0.HasErrors, "Percent 0 should be invalid");
+            Assert.IsTrue(p120.HasErrors, "Percent > 100 should be invalid");
+            Assert.IsFalse(p30.HasErrors, "Valid progression 30% should succeed");
             Assert.IsTrue(p20.HasErrors, "Non-increasing percent should be invalid");
         }
 
         [TestMethod]
         public void Cannot_update_or_delete_item_with_progress_more_than_50_percent()
         {
-            // Arrange
+            //Arrange
             var repoMock = CreateDefaultRepoMock(nextId: 1, categories: new[] { "Work" });
             var outputMock = CreateOutputMock();
             var todoListService = new TodoListService(repoMock.Object, outputMock.Object);
 
-            // Add item
+            //Act
             var addResult = todoListService.AddItem("Task", "Desc", "Work");
-            Assert.IsFalse(addResult.HasErrors);
             var id = addResult.Value;
 
-            // Register progression > 50%
             var r = todoListService.RegisterProgression(id, new DateTime(2025, 1, 1), 51m);
-            Assert.IsFalse(r.HasErrors, "Registering 51% should succeed");
-
-            // Attempt update -> should report error via Result
             var upd = todoListService.UpdateItem(id, "NewDesc");
-            Assert.IsTrue(upd.HasErrors, "Updating an item with progress > 50% should error");
-
-            // Attempt remove -> should report error via Result
             var rem = todoListService.RemoveItem(id);
+
+            //Assert
+            Assert.IsFalse(addResult.HasErrors);
+            Assert.IsFalse(r.HasErrors, "Registering 51% should succeed");
+            Assert.IsTrue(upd.HasErrors, "Updating an item with progress > 50% should error");
             Assert.IsTrue(rem.HasErrors, "Removing an item with progress > 50% should error");
         }
     }

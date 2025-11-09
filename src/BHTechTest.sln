@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.0 - Domain", "3.0 - Domai
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.1 - Infrastructure", "3.1 - Infrastructure", "{012F9F8F-0C8D-408F-AD31-8E2622D2B81C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BHTechTest.App.AppServices", "Application\BHTechTest.App.AppServices\BHTechTest.App.AppServices.csproj", "{661A3595-019C-45D0-908D-0E603CC2C780}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{538F6460-49F4-452E-974F-0920889AB376}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{538F6460-49F4-452E-974F-0920889AB376}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{538F6460-49F4-452E-974F-0920889AB376}.Release|Any CPU.Build.0 = Release|Any CPU
+		{661A3595-019C-45D0-908D-0E603CC2C780}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{661A3595-019C-45D0-908D-0E603CC2C780}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{661A3595-019C-45D0-908D-0E603CC2C780}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{661A3595-019C-45D0-908D-0E603CC2C780}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{538F6460-49F4-452E-974F-0920889AB376} = {CA3B40C5-3126-4686-A9E4-02CE79CBFAEF}
 		{A29B5069-9366-4944-9D27-31E03CD2DF3C} = {0DF66567-1C77-4247-9223-87D89FFCF0D4}
 		{012F9F8F-0C8D-408F-AD31-8E2622D2B81C} = {0DF66567-1C77-4247-9223-87D89FFCF0D4}
+		{661A3595-019C-45D0-908D-0E603CC2C780} = {CA3B40C5-3126-4686-A9E4-02CE79CBFAEF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A7EEC2F0-4AF1-4FC3-9C31-CA522F201D1E}
